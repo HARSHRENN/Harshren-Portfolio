@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HARSHREN RAMESH BACHHAV / 3D PORTFOLIO</title>
+
+    <meta name="description" content="Full Stack Developer. Technology, AI and design enthusiast." />
+
+    <meta itemprop=name content="HARSHREN RAMESH BACHHAV / 3D PORTFOLIO">
+    <meta itemprop="description" content="Full Stack Developer. Technology, AI and design enthusiast.">
+    <meta itemprop="image" content=https://github.com/HARSHRENN/Harshren-Portfolio/raw/main/static/mobile.png>
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HARSHREN RAMESH BACHHAV / 3D PORTFOLIO">
+    <meta name="twitter:description" content="Full Stack Developer. Technology, AI and design enthusiast.">
+    <meta name="twitter:image" content="https://github.com/HARSHRENN/Harshren-Portfolio/raw/main/static/mobile.png">
+
+    <meta property="og:site_name" content="HARSHREN RAMESH BACHHAV / 3D PORTFOLIO">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/HARSHRENN/Harshren-Portfolio">
+    <meta property="og:title" content="HARSHREN RAMESH BACHHAV / 3D PORTFOLIO">
+    <meta property="og:description" content="Full Stack Developer. Technology, AI and design enthusiast.">
+    <meta property="og:image" content="https://github.com/HARSHRENN/Harshren-Portfolio/raw/main/static/mobile.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="/static/favicon/car.png">
+    <link rel="apple-touch-icon" href="/static/favicon/car.png">
+    <meta name="apple-mobile-web-app-title" content="HARSHREN PORTFOLIO">
+    <meta name="application-name" content="HARSHREN PORTFOLIO">
+    <meta name="msapplication-TileColor" content="#9933ff">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <canvas class="webgl"></canvas>
+    <div class="overlay"></div>
+    <div id="cooking">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div id=area>
+            <div id="sides">
+                <div id="pan"></div>
+                <div id="handle"></div>
+            </div>
+            <div id="pancake">
+                <div id="pastry"></div>
+                <div id="pastry2"></div>
+                <div id="pastry3"></div>
+            </div>
+
+        </div>
+        <h1>Loading Portfolio... <span id="progressPercentage"></span>%</h1>
+
+    </div>
+    <button class="start">START</button>
+    <button class="back-button">BACK TO MENU</button>
+
+    <!-- About Me Popup Overlay -->
+    <div id="aboutme-popup" class="hidden">
+        <div class="aboutme-popup-content">
+            <button id="close-aboutme-popup">X</button>
+            <div class="aboutme-screen-header">
+                <span>PORTFOLIO.SYS &nbsp;|&nbsp; HARSHREN BACHHAV</span>
+            </div>
+            <div class="aboutme-tabs">
+                <button class="aboutme-tab active" data-atab="intro">👤 INTRO</button>
+                <button class="aboutme-tab" data-atab="education">🎓 EDUCATION</button>
+            </div>
+            <!-- INTRO TAB -->
+            <div class="aboutme-tab-content" id="atab-intro">
+                <div class="aboutme-intro-section">
+                    <div class="aboutme-name-block">
+                        <h2>HARSHREN BACHHAV</h2>
+                        <span class="aboutme-title">Full Stack Developer</span>
+                    </div>
+                    <p class="aboutme-bio">
+                        Full Stack Developer specializing in modern web technologies including React, Next.js, Node.js,
+                        Flutter, and APIs. Strong understanding of client architecture, SQL/NoSQL databases,
+                        authentication systems, and responsive UI/UX development. Focused on delivering high-quality
+                        production-ready applications that solve real-world business problems.
+                    </p>
+                    <div class="aboutme-contact-row">
+                        <a href="mailto:harshren777@gmail.com" class="aboutme-contact-chip">✉ harshren777@gmail.com</a>
+                        <a href="https://www.linkedin.com/in/harshrennn" target="_blank" class="aboutme-contact-chip">🔗
+                            LinkedIn</a>
+                        <a href="https://github.com/HARSHRENN" target="_blank" class="aboutme-contact-chip">🐙 GitHub</a>
+                    </div>
+                    <div class="aboutme-achievement-block">
+                        <h3>ACHIEVEMENTS</h3>
+                        <div class="aboutme-achievement-item">
+                            <span class="ach-icon">🎖</span>
+                            <p><strong>Media Head – College Council</strong><br>Trained skills in communication,
+                                creativity, and team leadership through managing college media and outreach.</p>
+                        </div>
+                        <div class="aboutme-achievement-item">
+                            <span class="ach-icon">📊</span>
+                            <p><strong>Finance Secretary – Department</strong><br>Handled effective financial
+                                management, budgeting, and organizational governance for the department.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- EDUCATION TAB -->
+            <div class="aboutme-tab-content hidden" id="atab-education">
+                <div class="edu-item">
+                    <div class="edu-header">
+                        <span class="edu-degree">B.E. – Computer Science Design (CSD)</span>
+                        <span class="edu-year">2021 – 2025</span>
+                    </div>
+                    <span class="edu-institution">New Horizon Institute of Technology &amp; Management</span>
+                    <span class="edu-board">Mumbai University</span>
+                    <div class="edu-score"><span class="score-label">CGPA</span><span class="score-value">7 /
+                            10</span></div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-header">
+                        <span class="edu-degree">XII – Science (Artificial Intelligence)</span>
+                        <span class="edu-year">2019 – 2021</span>
+                    </div>
+                    <span class="edu-institution">MH High School Junior College</span><span
+                        class="score-value">85%</span>
+                    <span class="edu-board">Maharashtra State Board</span>
+                </div>
+                <div class="edu-item" style="border-bottom:none;">
+                    <div class="edu-header">
+                        <span class="edu-degree">X – Secondary School Certificate</span>
+                        <span class="edu-year">2021</span>
+                    </div>
+                    <span class="edu-institution">NHK High School</span>
+                    <span class="edu-board">Maharashtra State Board</span>
+                    <div class="edu-score"><span class="score-label">PERCENTAGE</span><span
+                            class="score-value">71.20%</span></div>
+                </div>
+                <div class="edu-cert-block">
+                    <h3>CERTIFICATION</h3>
+                    <div class="edu-cert-item">
+                        <span class="cert-dot"></span>
+                        <span>Meta Back-End Developer Professional Certificate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Popup (Tech Stack only) -->
+    <div id="skills-popup" class="hidden">
+        <div class="skills-popup-content">
+            <button id="close-skills-popup">X</button>
+            <div class="skills-screen-header">
+                <span>PORTFOLIO.SYS &nbsp;|&nbsp; TECH STACK</span>
+            </div>
+            <div class="skills-tab-content" id="tab-skills">
+                <div class="skill-category">
+                    <h3>LANGUAGES</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Dart</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>FRAMEWORKS &amp; LIBRARIES</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag cyan">React</span>
+                        <span class="skill-tag cyan">Next.js</span>
+                        <span class="skill-tag cyan">Flutter</span>
+                        <span class="skill-tag cyan">Three.js</span>
+                        <span class="skill-tag cyan">Node.js</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>BACKEND &amp; DATABASE</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag magenta">Firebase</span>
+                        <span class="skill-tag magenta">Firestore</span>
+                        <span class="skill-tag magenta">REST APIs</span>
+                        <span class="skill-tag magenta">MongoDB</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>TOOLS &amp; PLATFORMS</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag yellow">Git</span>
+                        <span class="skill-tag yellow">Vercel</span>
+                        <span class="skill-tag yellow">Figma</span>
+                        <span class="skill-tag yellow">Blender</span>
+                        <span class="skill-tag yellow">VS Code</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experience Popup (standalone) -->
+    <div id="experience-popup" class="hidden">
+        <div class="experience-popup-content">
+            <button id="close-experience-popup">X</button>
+            <div class="experience-screen-header">
+                <span>CAREER.SYS &nbsp;|&nbsp; EXPERIENCE</span>
+            </div>
+
+            <div class="xp-item">
+                <div class="xp-header">
+                    <span class="xp-role">Software Developer</span>
+                    <span class="xp-date">July 2025 – Present</span>
+                </div>
+                <span class="xp-company">RN Studios &nbsp;·&nbsp; Thane, India</span>
+                <ul class="xp-list">
+                    <li>Developed and maintained software applications using modern programming practices.</li>
+                    <li>Collaborated with team members to design and implement new features.</li>
+                    <li>Debugged and optimized code for better performance.</li>
+                    <li>Worked on real-world projects improving problem-solving skills.</li>
+                </ul>
+            </div>
+
+            <div class="xp-item" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+                <div class="xp-header">
+                    <span class="xp-role">Software Developer</span>
+                    <span class="xp-date">June 2024 – March 2025</span>
+                </div>
+                <span class="xp-company">Trovac Corporation &nbsp;·&nbsp; Thane, India</span>
+                <ul class="xp-list">
+                    <li>Developed core modules of a mobile application using Flutter and Firebase.</li>
+                    <li>Built employee onboarding, attendance tracking, and authentication systems.</li>
+                    <li>Implemented real-time database operations using Firebase Realtime Database.</li>
+                    <li>Designed secure login systems using Firebase Authentication.</li>
+                    <li>Improved UI/UX and application performance through continuous testing.</li>
+                    <li>Delivered a production-ready application used for internal operations.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- Projects Popup Overlay -->
+
+    <div id="projects-popup" class="hidden">
+        <div class="popup-content">
+            <button id="close-popup">X</button>
+
+            <!-- Infotainment screen header -->
+            <div class="popup-screen-header">
+                <span>PORTFOLIO.SYS &nbsp;|&nbsp; PROJECTS</span>
+            </div>
+
+            <div class="project-item">
+                <div class="project-card-header">
+                    <span class="project-category-badge cyan">Full Stack App</span>
+                </div>
+                <h2>Revolver2 – React &amp; Vite Web Application</h2>
+                <p>Full-stack web application built using React, Vite, and Node.js. Features API integration, modular UI architecture, custom component systems, and optimized asset bundling for fast load times.</p>
+                <div class="project-tags">
+                    <span class="ptag">React</span>
+                    <span class="ptag">Vite</span>
+                    <span class="ptag">Node.js</span>
+                    <span class="ptag">JavaScript</span>
+                    <span class="ptag">Vercel</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/HARSHRENN/revolver2" target="_blank" class="project-btn btn-github">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                        GitHub Repo
+                    </a>
+                    <a href="https://revolver2.vercel.app/" target="_blank" class="project-btn btn-live">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M4.75 3a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h6.5a.75.75 0 00.75-.75v-3.5a.75.75 0 011.5 0v3.5A2.25 2.25 0 0111.25 14h-6.5A2.25 2.25 0 012.5 11.75v-8.5A2.25 2.25 0 014.75 1h3.5a.75.75 0 010 1.5h-3.5z"/><path d="M9 1a.75.75 0 01.75-.75h5.5c.414 0 .75.336.75.75v5.5a.75.75 0 01-1.5 0V2.56L9.53 7.53a.75.75 0 01-1.06-1.06L13.44 1.5H9.75A.75.75 0 019 1z"/></svg>
+                        Live Website
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-card-header">
+                    <span class="project-category-badge magenta">Mobile App</span>
+                </div>
+                <h2>Employee Management Flutter App</h2>
+                <p>Built core modules for the Troves mobile app including onboarding, attendance tracking, and phone-auth workflows using Flutter Firebase. Implemented real-time data operations and improved UI/UX performance. Currently deployed for internal workshop operations.</p>
+                <div class="project-tags">
+                    <span class="ptag">Flutter</span>
+                    <span class="ptag">Dart</span>
+                    <span class="ptag">Firebase</span>
+                    <span class="ptag">Firestore</span>
+                    <span class="ptag">REST APIs</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/HARSHRENN" target="_blank" class="project-btn btn-github">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                        GitHub Repo
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-card-header">
+                    <span class="project-category-badge cyan">Web Platform</span>
+                </div>
+                <h2>Eaters Food Ordering Platform</h2>
+                <p>Developed a multi-vendor food ordering platform using React and Firebase. Includes vendor dashboards, real-time ordering, authentication, and menu management workflows. Used by multiple local vendors daily.</p>
+                <div class="project-tags">
+                    <span class="ptag">React</span>
+                    <span class="ptag">Firebase</span>
+                    <span class="ptag">Tailwind CSS</span>
+                    <span class="ptag">Realtime DB</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/HARSHRENN" target="_blank" class="project-btn btn-github">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                        GitHub Repo
+                    </a>
+                    <a href="https://easypurchase.vercel.app/" target="_blank" class="project-btn btn-live">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M4.75 3a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h6.5a.75.75 0 00.75-.75v-3.5a.75.75 0 011.5 0v3.5A2.25 2.25 0 0111.25 14h-6.5A2.25 2.25 0 012.5 11.75v-8.5A2.25 2.25 0 014.75 1h3.5a.75.75 0 010 1.5h-3.5z"/><path d="M9 1a.75.75 0 01.75-.75h5.5c.414 0 .75.336.75.75v5.5a.75.75 0 01-1.5 0V2.56L9.53 7.53a.75.75 0 01-1.06-1.06L13.44 1.5H9.75A.75.75 0 019 1z"/></svg>
+                        Live Website
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-card-header">
+                    <span class="project-category-badge yellow">Landing Page</span>
+                </div>
+                <h2>Coffee Shop Web Platform</h2>
+                <p>Built a modern product landing website for a coffee shop using Next.js and responsive Tailwind CSS layouts. Designed custom UI components and animations for a clean, mobile-ready interface.</p>
+                <div class="project-tags">
+                    <span class="ptag">Next.js</span>
+                    <span class="ptag">React</span>
+                    <span class="ptag">Tailwind CSS</span>
+                    <span class="ptag">Vercel</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/HARSHRENN" target="_blank" class="project-btn btn-github">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                        GitHub Repo
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-card-header">
+                    <span class="project-category-badge magenta">AI &amp; ML</span>
+                </div>
+                <h2>GameSense.AI</h2>
+                <p>A cutting-edge AI platform utilizing Python-driven machine learning algorithms and advanced data analytics to analyze gaming performance. Optimizes strategies, delivers personalized insights, and manages large performance datasets.</p>
+                <div class="project-tags">
+                    <span class="ptag">Python</span>
+                    <span class="ptag">Machine Learning</span>
+                    <span class="ptag">Data Analytics</span>
+                    <span class="ptag">AI Model</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/HARSHRENN" target="_blank" class="project-btn btn-github">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                        GitHub Repo
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

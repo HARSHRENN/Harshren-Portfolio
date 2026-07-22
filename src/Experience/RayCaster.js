@@ -1,0 +1,595 @@
+import * as THREE from 'three'
+import { GridHelper, Group } from 'three'
+import Experience from './Experience.js'
+
+export default class RayCaster
+{
+    constructor()
+    {
+        this.experience = new Experience()
+        this.debug = this.experience.debug
+        this.scene = this.experience.scene
+        this.resources = this.experience.resources
+        this.camera = this.experience.camera
+        this.sizes = this.experience.sizes
+        this.performance = this.experience.performance 
+        this.preLoader = this.experience.preLoader
+        this.controller = this.experience.controller
+        this.config = this.experience.config
+        this.sounds = this.experience.sounds
+
+        // Wait for resources
+        this.preLoader.on('start', () =>
+        {
+            // Setup
+            this.config.touch = this.experience.config.touch
+            this.garage = this.experience.world.garage
+            this.hologram = this.experience.world.hologram
+            this.raycaster = new THREE.Raycaster()
+            this.cursorDown = new THREE.Vector2()
+            this.cursor = new THREE.Vector2()
+
+            // Create sign hitboxes
+            this.signHitBoxes = new THREE.Group()
+            this.hitBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true} )
+
+            this.projectsHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 0.4, 0.6, 1.7 ),
+                this.hitBoxMaterial
+            )
+            this.projectsHitBox.position.set(-4,0.4,-5)
+
+            this.jZhouHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 0.4, 1, 1 ),
+                this.hitBoxMaterial
+            )
+            this.jZhouHitBox.position.set(-4,-0.4,-4.72)
+            this.articlesHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 0.4, 0.45, 1.5 ),
+                this.hitBoxMaterial
+            )
+            this.articlesHitBox.position.set(-4,-1.25,-5)
+
+            this.aboutMeHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 0.4, 0.43, 1.7 ),
+                this.hitBoxMaterial
+            )
+            this.aboutMeHitBox.position.set(-4,-1.83,-5.1)
+
+            this.creditsHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 0.4, 0.4, 1.4 ),
+                this.hitBoxMaterial
+            )
+            this.creditsHitBox.position.set(-4,-2.3,-5.03)
+
+            this.signHitBoxes.add(this.projectsHitBox, this.jZhouHitBox, this.articlesHitBox,this.aboutMeHitBox, this.creditsHitBox )
+            this.signHitBoxes.visible = false
+            this.scene.add(this.signHitBoxes)
+
+            // Create Project Hitboxes
+            
+            this.projectHitBoxes = new THREE.Group()
+            this.projectHitBoxGeometry = new THREE.PlaneGeometry( 0.29, 0.435 )
+
+            this.project1 = new THREE.Mesh(
+                this.projectHitBoxGeometry,
+                this.hitBoxMaterial
+            )
+            this.project1.position.set(0.72,-0.695,2.88)
+
+            this.project2 = new THREE.Mesh(
+                this.projectHitBoxGeometry,
+                this.hitBoxMaterial
+            )
+            this.project2.position.set(0.72 + 0.29,-0.695,2.88)
+
+            this.project3 = new THREE.Mesh(
+                this.projectHitBoxGeometry,
+                this.hitBoxMaterial
+            )
+            this.project3.position.set(0.72 + 0.29*2,-0.695,2.88)
+
+            this.project4 = new THREE.Mesh(
+                this.projectHitBoxGeometry,
+                this.hitBoxMaterial
+            )
+            this.project4.position.set(0.72 + 0.29*3,-0.695,2.88)
+
+            this.projectNavigateHitBoxGeometry = new THREE.PlaneGeometry( 0.47, 0.27 )
+
+            this.projectBack = new THREE.Mesh(
+                this.projectNavigateHitBoxGeometry,
+                this.hitBoxMaterial
+            )
+            this.projectBack.position.set(0.86,-1.66,2.85)
+
+            this.projectEnter = new THREE.Mesh(
+                this.projectNavigateHitBoxGeometry,
+                this.hitBoxMaterial
+            )
+            this.projectEnter.position.set(1.415,-1.66,2.85)
+
+            this.projectHitBoxes.add(this.project1, this.project2, this.project3, this.project4, this.projectBack, this.projectEnter)
+            this.projectHitBoxes.visible = false
+            this.scene.add(this.projectHitBoxes)
+
+            // Create aboutMe Hitboxes
+
+            this.aboutMeBoxes = new THREE.Group()
+
+            if(this.config.vertical === true)
+            {
+                this.aboutMeHitBoxGeometry = new THREE.PlaneGeometry( 0.3, 0.2 )
+
+                this.aboutMeBack = new THREE.Mesh(
+                    new THREE.PlaneGeometry( 0.3, 0.2 ),
+                    this.hitBoxMaterial
+                )
+                this.aboutMeBack.position.set(0.12, 4.58, 0.58)
+
+                this.aboutMeScreens = new THREE.Mesh(
+                    this.aboutMeHitBoxGeometry,
+                    this.hitBoxMaterial
+                )
+                this.aboutMeScreens.position.set(0.45, 4.58, 0.58)
+
+                this.skills = new THREE.Mesh(
+                    this.aboutMeHitBoxGeometry,
+                    this.hitBoxMaterial
+                )
+                this.skills.position.set(0.78, 4.58, 0.58)
+
+                this.experience = new THREE.Mesh(
+                    new THREE.PlaneGeometry( 0.45, 0.2 ),
+                    this.hitBoxMaterial
+                )
+                this.experience.position.set(1.15, 4.58, 0.58)
+
+            }
+            else
+            {
+                this.aboutMeHitBoxGeometry = new THREE.PlaneGeometry( 0.4, 0.4 )
+
+                this.aboutMeBack = new THREE.Mesh(
+                    new THREE.PlaneGeometry( 0.7, 0.2 ),
+                    this.hitBoxMaterial
+                )
+                this.aboutMeBack.position.set(-0.5, 4.58, 0.58)
+
+                this.aboutMeScreens = new THREE.Mesh(
+                    this.aboutMeHitBoxGeometry,
+                    this.hitBoxMaterial
+                )
+                this.aboutMeScreens.position.set(2, 4.4, 0.58)
+                this.aboutMeScreens.rotation.z = Math.PI / 2
+
+                this.skills = new THREE.Mesh(
+                    this.aboutMeHitBoxGeometry,
+                    this.hitBoxMaterial
+                )
+                this.skills.position.set(2, 4, 0.58)
+                this.skills.rotation.z = Math.PI / 2
+
+                this.experience = new THREE.Mesh(
+                    new THREE.PlaneGeometry( 0.6, 0.4 ),
+                    this.hitBoxMaterial
+                )
+                this.experience.position.set(2, 3.5, 0.58)
+                this.experience.rotation.z = Math.PI / 2
+            }
+            
+            this.aboutMeBoxes.add(this.aboutMeBack, this.aboutMeScreens, this.skills, this.experience)
+            this.aboutMeBoxes.visible = false
+
+            this.scene.add(this.aboutMeBoxes)
+
+            // Create social Hitboxes
+
+            this.socials = new THREE.Group()
+
+            this.socialButtonGeometry = new THREE.PlaneGeometry( 0.13, 0.13 )
+
+            this.twitterSocialButton = new THREE.Mesh(
+                this.socialButtonGeometry,
+                this.hitBoxMaterial
+            )
+            this.twitterSocialButton.position.set(-0.27, 3.05, 0.58)
+
+            this.linkedInSocialButton = new THREE.Mesh(
+                this.socialButtonGeometry,
+                this.hitBoxMaterial
+            )
+            this.linkedInSocialButton.position.set(-0.131, 3.05, 0.58)
+
+            this.gitHubSocialButton = new THREE.Mesh(
+                this.socialButtonGeometry,
+                this.hitBoxMaterial
+            )
+            this.gitHubSocialButton.position.set(-0.01, 3.05, 0.58)
+
+            this.mediumSocialButton = new THREE.Mesh(
+                this.socialButtonGeometry,
+                this.hitBoxMaterial
+            )
+            this.mediumSocialButton.position.set(0.115, 3.05, 0.58)
+
+            this.mailSocialButton = new THREE.Mesh(
+                this.socialButtonGeometry,
+                this.hitBoxMaterial
+            )
+            this.mailSocialButton.position.set(0.245, 3.05, 0.58)
+
+            this.socials.add(this.twitterSocialButton, this.linkedInSocialButton, this.gitHubSocialButton, this.mediumSocialButton, this.mailSocialButton)
+
+            if(this.config.vertical === true)
+            {
+                this.socials.translateX(0.36)
+            }
+
+            this.socials.visible = false
+            this.scene.add(this.socials)
+
+            // Create hologram hitbox
+
+            this.hologramHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 2, 2, 2 ),
+                this.hitBoxMaterial
+            )
+            this.hologramHitBox.position.set(0,4,-1)
+            this.hologramHitBox.visible = false
+
+            this.scene.add(this.hologramHitBox)
+
+            // Create large object hitboxes
+
+            this.vendingMachineHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 1.6, 3.1, 1.6 ),
+                this.hitBoxMaterial
+            )
+            this.vendingMachineHitBox.position.set(1.15,-1.1,2.1)
+            this.vendingMachineHitBox.visible = false
+
+            this.arcadeMachineHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 1.3, 2.9, 1.8 ),
+                this.hitBoxMaterial
+            )
+            this.arcadeMachineHitBox.position.set(-0.58,-1.5,2.25)
+            this.arcadeMachineHitBox.visible = false
+
+            this.scene.add(this.vendingMachineHitBox, this.arcadeMachineHitBox)
+
+
+            // Debug
+            if(this.debug.active)
+            {
+                this.hitBoxVisibility = {visible:false}
+                this.debugFolder = this.debug.ui.addFolder('touchHitBoxes')
+                this.debugFolder
+                    .add(this.hitBoxVisibility, 'visible')
+                    .onChange(() =>
+                    {
+                        this.projectsHitBox.visible = this.hitBoxVisibility.visible
+                        this.jZhouHitBox.visible = this.hitBoxVisibility.visible
+                        this.articlesHitBox.visible = this.hitBoxVisibility.visible
+                        this.aboutMeHitBox.visible = this.hitBoxVisibility.visible
+                        this.creditsHitBox.visible = this.hitBoxVisibility.visible
+                        this.project1.visible = this.hitBoxVisibility.visible
+                        this.project2.visible = this.hitBoxVisibility.visible
+                        this.project3.visible = this.hitBoxVisibility.visible
+                        this.project4.visible = this.hitBoxVisibility.visible
+                        this.projectBack.visible = this.hitBoxVisibility.visible
+                        this.projectEnter.visible = this.hitBoxVisibility.visible
+                    })
+                
+            }
+
+            // Objects to test
+
+            this.objectsToTest = [
+                //menu
+                this.garage.projectsBtn,
+                this.garage.articlesBtn,
+                this.garage.aboutMeBtn,
+                this.garage.skillsBtn,
+                this.garage.experienceBtn,
+                this.garage.creditsBtn,
+
+                //projects
+                this.project1, 
+                this.project2, 
+                this.project3, 
+                this.project4, 
+                this.projectBack,
+                this.projectEnter,
+
+                //aboutMeScreen
+                this.aboutMeBack, 
+                this.aboutMeScreens, 
+                this.skills, 
+                this.experience,
+
+                // arcadeScreen
+                this.garage.arcadeScreen,
+
+                // Models
+                this.garage.garage,
+                this.garage.machines,
+                this.garage.floor,
+                this.garage.misc,
+                this.garage.graphics,
+                this.garage.jesseZhouJoined,
+
+                //hologram
+                this.hologramHitBox,
+
+                //TV screens
+                this.garage.bigScreen,
+                this.garage.littleTVScreen,
+                this.garage.tallScreen,
+                this.garage.tvScreen,
+                
+                this.garage.smallScreen1,
+                this.garage.smallScreen2,
+                this.garage.smallScreen3,
+                this.garage.smallScreen4,
+                this.garage.smallScreen5,
+
+                // socials
+                this.twitterSocialButton,
+                this.linkedInSocialButton,
+                this.gitHubSocialButton,
+                this.mediumSocialButton,
+                this.mailSocialButton
+            ]
+
+            // touch objects
+            if(this.config.touch == true)
+            {
+                this.objectsToTest.push(
+                    this.projectsHitBox,
+                    this.jZhouHitBox,
+                    this.articlesHitBox,
+                    this.aboutMeHitBox,
+                    this.creditsHitBox)
+            }
+            else 
+            {
+                this.objectsToTest.push(
+                    this.garage.projectsBtn,
+                    this.garage.articlesBtn,
+                    this.garage.aboutMeBtn,
+                    this.garage.creditsBtn
+                )
+            }
+
+            // add the machines
+
+            this.machinesToTest = [this.vendingMachineHitBox, this.arcadeMachineHitBox, this.garage.bigScreen,
+
+                //obstructors
+                this.garage.garage,
+                this.garage.machines,
+                this.garage.floor,
+                this.garage.misc,
+                this.garage.bigScreen,
+                this.garage.littleTVScreen,
+                this.garage.tallScreen,
+                this.garage.tvScreen,
+                
+                this.garage.smallScreen1,
+                this.garage.smallScreen2,
+                this.garage.smallScreen3,
+                this.garage.smallScreen4,
+                this.garage.smallScreen5,
+            ]
+
+            this.touchedPoints = []
+
+            window.addEventListener('pointerdown', (event) =>
+            {
+                this.touchedPoints.push(event.pointerId)
+
+                this.cursorXMin = Math.abs((event.clientX / this.sizes.width * 2 - 1)*0.9)
+                this.cursorXMax = Math.abs((event.clientX / this.sizes.width * 2 - 1)*1.1)
+
+                this.cursorYMin = Math.abs((event.clientY / this.sizes.height * 2 - 1)*0.9)
+                this.cursorYMax = Math.abs((event.clientY / this.sizes.height * 2 - 1)*1.1)
+
+            })
+
+            // Click listener
+            window.addEventListener('pointerup', (event) =>
+            {
+                this.cursor.x = event.clientX / this.sizes.width * 2 - 1
+                this.cursor.y = - (event.clientY / this.sizes.height) * 2 + 1
+
+                this.absX = Math.abs(this.cursor.x)
+                this.absY = Math.abs(this.cursor.y)
+
+                if(this.touchedPoints.length === 1 && 
+                this.absX > this.cursorXMin && this.absX < this.cursorXMax &&
+                this.absY > this.cursorYMin && this.absY < this.cursorYMax) 
+
+                {
+                this.click(this.cursor)
+
+                this.touchedPoints = []
+                }
+                else
+                {this.touchedPoints = []}
+            })
+        })
+    }
+
+    click(cursor)
+    {
+        this.raycaster.setFromCamera(cursor, this.camera.instance)
+        
+        //Object click listener
+        this.intersectsObjects = this.raycaster.intersectObjects(this.objectsToTest)
+        if(this.intersectsObjects.length)
+        {
+            this.selectedModel = this.intersectsObjects[ 0 ].object
+
+            switch(this.selectedModel)
+            {
+                // Menu
+                case this.garage.projectsBtn:
+                case this.projectsHitBox:
+                    this.controller.menuControls.projects(this.garage.projectsBtn, 'white')
+                    break
+
+                case this.garage.articlesBtn:
+                case this.articlesHitBox:
+                    this.controller.menuControls.articles(this.garage.articlesBtn, 'white')
+                    break
+
+                case this.garage.aboutMeBtn:
+                case this.aboutMeHitBox:
+                    this.controller.menuControls.aboutMe(this.garage.aboutMeBtn, 'black')
+                    break
+
+                case this.garage.skillsBtn:
+                    this.controller.menuControls.workbench(this.garage.skillsBtn, 'white')
+                    break
+
+                case this.garage.experienceBtn:
+                    this.controller.menuControls.experience(this.garage.experienceBtn, 'white')
+                    break
+
+                case this.garage.creditsBtn:
+                case this.creditsHitBox:
+                    this.controller.menuControls.credits(this.garage.creditsBtn, 'black')
+                    break
+
+                //projects
+
+                case this.project1:
+                    this.controller.projectControls.project1()
+                    break
+                
+                case this.project2:
+                    this.controller.projectControls.project2()
+                    break
+
+                case this.project3:
+                    this.controller.projectControls.project3()
+                    break
+                
+                case this.project4:
+                    this.controller.projectControls.project4()
+                    break
+
+                case this.projectBack:
+                    this.controller.projectControls.projectBack()
+                    break
+                
+                case this.projectEnter:
+                    this.controller.projectControls.projectEnter()
+                    break
+
+                //aboutMe Menu
+                case this.aboutMeBack:
+                    this.controller.aboutMeControls.aboutMeBack()
+                    break
+                case this.aboutMeScreens:
+                    this.controller.aboutMeControls.aboutMeScreens()
+                    break
+                case this.skills:
+                    this.controller.aboutMeControls.aboutMeSkills()
+                    break
+                case this.experience:
+                    this.controller.aboutMeControls.aboutMeExperience()
+                    break
+        
+                //screens
+                case this.garage.arcadeScreen:
+                    this.controller.screenControls.arcadeScreen()
+                    break
+
+                case this.hologramHitBox:
+                    this.hologram.breakHologram()
+                    break
+
+                case this.garage.littleTVScreen:
+                    this.controller.videoControls.littleTVScreen()
+                    break
+
+                case this.garage.tallScreen:
+                    this.controller.videoControls.tallScreen()
+                    break
+
+                case this.garage.tvScreen:
+                    this.controller.videoControls.tvScreen()
+                    break
+                                    
+                case this.garage.smallScreen1:
+                    this.controller.videoControls.smallScreen1()
+                    this.sounds.playBloop()
+                    break
+
+                case this.garage.smallScreen2:
+                    this.controller.videoControls.smallScreen2()
+                    this.sounds.playBloop()
+                    break
+
+                case this.garage.smallScreen3:
+                    this.controller.videoControls.smallScreen3()
+                    break
+
+                case this.garage.smallScreen4:
+                    this.controller.videoControls.smallScreen4()
+                    break
+
+                case this.garage.smallScreen5:
+                    this.controller.videoControls.smallScreen5()
+                    break
+
+                // Socials
+                case this.twitterSocialButton:
+                    this.controller.socialControls.twitter()
+                    break
+
+                case this.linkedInSocialButton:
+                    this.controller.socialControls.linkedIn()
+                    break
+                
+                case this.gitHubSocialButton:
+                    this.controller.socialControls.gitHub()
+                    break
+
+                case this.mediumSocialButton:
+                    this.controller.socialControls.medium()
+                    break
+                
+                case this.mailSocialButton:
+                    this.controller.socialControls.mail()
+                    break
+            }
+
+        } 
+        
+        //Object click listener
+        this.intersectsMachines= this.raycaster.intersectObjects(this.machinesToTest)
+        if(this.intersectsMachines.length)
+        {
+            this.selectedMachine = this.intersectsMachines[ 0 ].object
+
+            switch(this.selectedMachine)
+            {
+                // Menu
+                case this.vendingMachineHitBox:
+                    this.controller.menuControls.projects(this.garage.projectsWhite, 'white')
+                    break
+
+                case this.arcadeMachineHitBox:
+                    this.controller.menuControls.credits(this.garage.creditsBlack, 'black')
+                    break
+
+                case this.garage.bigScreen:
+                    this.controller.menuControls.aboutMe(this.garage.aboutMeBlack, 'black')
+                    break
+            }
+        }
+    }
+}
